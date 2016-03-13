@@ -16,23 +16,20 @@
   You should have received a copy of the GNU General Public License
   along with Terca C++ Sockets.  If not, see <http://www.gnu.org/licenses/>.
 */
-#include "ctserversecure.h"
 #include <iostream>
+#include "ctserver.h"
 
 using namespace std;
 
 int main(){
 
-		ctserversecure server("passwordpassword");
+		ctserver server;
 
 		server.create(5554);
 		server.getconn();
 
 		cout << server.c_read() << "\n";
 		server.c_write("server.create(5553); server.getconn(); cout << server.c_read() << 'n';");
-
-		cout << server.s_read() << "\n";
-		server.s_write("Testing testing testing testing testing testing testing testing testing");
 
 		server.c_close();
 

@@ -16,22 +16,19 @@
   You should have received a copy of the GNU General Public License
   along with Terca C++ Sockets.  If not, see <http://www.gnu.org/licenses/>.
 */
-#include "ctclientsecure.h"
+#include "ctclient.h"
 #include <iostream>
 
 using namespace std;
 
 int main(){
 
-		ctclientsecure client("passwordpassword");
+		ctclient client;
 
 		client.create("127.0.0.1", 5554);
 
 		cout << client.c_write("Testing 1 2 3. Testing 4 5 6. using namespace std;") << "\n";
 		cout << client.c_read() << "\n";
-
-		cout << client.s_write("#include <iostream> int main(int argc, char* argv[]){}") << "\n";
-		cout << client.s_read() << "\n";
 
 		client.c_close();
 	
