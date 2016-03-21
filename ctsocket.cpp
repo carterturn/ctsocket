@@ -35,7 +35,7 @@ string ctsocket::c_read(){
 				for(int i = 1; i < 9; i++){
 						data += reccstr[i];
 				}
-				if(reccstr[0] == 'e') reading = false;
+				if(((int) reccstr[0] & 0xF0) == 0x40) reading = false;
 		}
 
 		return data;
@@ -49,8 +49,8 @@ int ctsocket::c_write(string data){
 						data.erase(0, 8);
 						char msg[9];
 						bzero(msg, 9);
-						if(data.length() > 0) msg[0] = 'c';
-						else msg[0] = 'e';
+						if(data.length() > 0) msg[0] = 0x38;
+						else msg[0] = 0x40 + temp.length();
 						for(int i = 0; i < temp.length(); i++){
 								msg[i+1] = temp[i];
 						}
@@ -60,7 +60,7 @@ int ctsocket::c_write(string data){
 		else{
 				char msg[9];
 				bzero(msg, 9);
-				msg[0] = 'e';
+				msg[0] = 0x40 + data.length();
 				for(int i = 0; i < data.length(); i++){
 						msg[i+1] = data[i];
 				}
