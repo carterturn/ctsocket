@@ -16,13 +16,13 @@ build: $(BASE) $(SECURE) $(CLIENT) $(CLIENTSECURE) $(SERVER) $(SERVERSECURE)
 	$(CPP) -c -fPIC $(SERVERSECURE)
 	$(CPP) -shared -Wl,-soname,libctsocket.so -o libctsocket.so *.o
 install:
-	cp libctsocket.so /usr/lib/
-	mkdir /usr/include/ctsocket
-	cp *.h /usr/include/ctsocket/
+	cp -f libctsocket.so /usr/lib/
+	[ -d /usr/include/ctsocket ] || mkdir /usr/include/ctsocket
+	cp -f *.h /usr/include/ctsocket/
 uninstall:
-	rm /usr/lib/libctsocket.so
-	rm /usr/include/ctsocket/*.h
-	rmdir /usr/include/ctsocket
+	rm -f /usr/lib/libctsocket.so
+	rm -f /usr/include/ctsocket/*.h
+	[ -d /usr/include/ctsocket ] || rmdir /usr/include/ctsocket
 test_server: tserver.cpp $(BASE) $(SECURE) $(CLIENT) $(CLIENTSECURE) $(SERVER) $(SERVERSECURE)
 	$(CPP) -o server tserver.cpp $(BASE) $(SECURE) $(CLIENT) $(CLIENTSECURE) $(SERVER) $(SERVERSECURE) -ltomcrypt
 test_client: tclient.cpp $(BASE) $(SECURE) $(CLIENT) $(CLIENTSECURE) $(SERVER) $(SERVERSECURE)
@@ -31,5 +31,9 @@ test_secure: tsecure.cpp $(BASE) $(SECURE) $(CLIENT) $(CLIENTSECURE) $(SERVER) $
 	$(CPP) -o secure tsecure.cpp $(BASE) $(SECURE) $(CLIENT) $(CLIENTSECURE) $(SERVER) $(SERVERSECURE) -ltomcrypt
 test: test_server test_client test_secure
 clean:
-	rm *.o *.so *.gch
-	rm server client secure
+	for file in $$(ls *.o); do rm $$file; done
+	for file in $$(ls *.so); do rm $$file; done
+	for file in $$(ls *.gch); do rm $$file; done
+	if [ -e server ]; then rm server; fi
+	if [ -e client ]; then rm client; fi
+	if [ -e secure ]; then rm secure; fi
