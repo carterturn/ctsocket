@@ -20,9 +20,9 @@ install:
 	[ -d /usr/include/ctsocket ] || mkdir /usr/include/ctsocket
 	cp -f *.h /usr/include/ctsocket/
 uninstall:
-	rm /usr/lib/libctsocket.so
-	rm /usr/include/ctsocket/*.h
-	rmdir /usr/include/ctsocket
+	rm -f /usr/lib/libctsocket.so
+	rm -f /usr/include/ctsocket/*.h
+	[ -d /usr/include/ctsocket ] || rmdir /usr/include/ctsocket
 test_server: tserver.cpp $(BASE) $(SECURE) $(CLIENT) $(CLIENTSECURE) $(SERVER) $(SERVERSECURE)
 	$(CPP) -o server tserver.cpp $(BASE) $(SECURE) $(CLIENT) $(CLIENTSECURE) $(SERVER) $(SERVERSECURE) -ltomcrypt
 test_client: tclient.cpp $(BASE) $(SECURE) $(CLIENT) $(CLIENTSECURE) $(SERVER) $(SERVERSECURE)
