@@ -31,5 +31,9 @@ test_secure: tsecure.cpp $(BASE) $(SECURE) $(CLIENT) $(CLIENTSECURE) $(SERVER) $
 	$(CPP) -o secure tsecure.cpp $(BASE) $(SECURE) $(CLIENT) $(CLIENTSECURE) $(SERVER) $(SERVERSECURE) -ltomcrypt
 test: test_server test_client test_secure
 clean:
-	rm *.o *.so *.gch
-	rm server client secure
+	for file in $(ls *.o); do rm $file; done
+	for file in $(ls *.so); do rm $file; done
+	for file in $(ls *.gch); do rm $file; done
+	if [ -e server ]; then rm server; fi
+	if [ -e client ]; then rm client; fi
+	if [ -e secure ]; then rm secure; fi
