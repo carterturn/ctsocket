@@ -29,32 +29,32 @@
 using namespace std;
 
 int ctserver::create(int port){
-		serversocketid = socket(AF_INET, SOCK_STREAM, 0);
+	serversocketid = socket(AF_INET, SOCK_STREAM, 0);
 	
-		sockaddr_in serverAddr;
-		serverAddr.sin_family = AF_INET;
-		serverAddr.sin_port = htons(port);
-		serverAddr.sin_addr.s_addr = INADDR_ANY;
+	sockaddr_in serverAddr;
+	serverAddr.sin_family = AF_INET;
+	serverAddr.sin_port = htons(port);
+	serverAddr.sin_addr.s_addr = INADDR_ANY;
 	
-		bind(serversocketid, (struct sockaddr*)&serverAddr, sizeof(struct sockaddr));
-		listen(serversocketid, 4);
+	bind(serversocketid, (struct sockaddr*)&serverAddr, sizeof(struct sockaddr));
+	listen(serversocketid, 4);
 	
-		return 0;
+	return 0;
 }
 
 int ctserver::getconn(){
 	
-		sockaddr_in clientAddr;
-		socklen_t sin_size=sizeof(struct sockaddr_in);
-		socketid = accept(serversocketid, (struct sockaddr*)&clientAddr, &sin_size);
+	sockaddr_in clientAddr;
+	socklen_t sin_size=sizeof(struct sockaddr_in);
+	socketid = accept(serversocketid, (struct sockaddr*)&clientAddr, &sin_size);
 	
-		return 0;
+	return 0;
 }
 
 
 int ctserver::c_close(){
-		shutdown(socketid, 2);
-		close(socketid);
+	shutdown(socketid, 2);
+	close(socketid);
 	
-		return 0;
+	return 0;
 }
