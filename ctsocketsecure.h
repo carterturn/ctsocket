@@ -25,9 +25,14 @@ class ctsocketsecure {
 
 public:
 	ctsocketsecure(std::string key);
+	
 	std::string encrypt(std::string data);
 	std::string decrypt(std::string data);
 
+	void encryptstart();
+	void encryptend();
+
 protected:
-	symmetric_xts aes;
+	symmetric_CBC aes;
+	std::string aes_key;
 };
