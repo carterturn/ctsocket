@@ -32,10 +32,10 @@ string ctsocket::c_read(){
 		char reccstr[ctsocket_datasize + 1];
 		bzero(reccstr, ctsocket_datasize + 1);
 		read(socketid, reccstr, ctsocket_datasize + 1);
-		for(int i = 1; i < (int) reccstr[0] + 1; i++){
+		for(int i = 1; i < (unsigned char) reccstr[0] + 1; i++){
 			data += reccstr[i];
 		}
-		if(((int) reccstr[0]) < ctsocket_datasize) reading = false;
+		if(((unsigned char) reccstr[0]) < ctsocket_datasize) reading = false;
 	}
 
 	return data;
