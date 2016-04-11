@@ -23,17 +23,17 @@ using namespace std;
 
 int main(){
 
-		ctclientsecure client("passwordpassword");
+	ctclientsecure client("passwordpassword");
 
-		client.create("127.0.0.1", 5556);
+	client.create("127.0.0.1", 5556);
 
-		cout << client.c_write("Testing 1 2 3. Testing 4 5 6. using namespace std;") << "\n";
-		cout << client.c_read() << "\n";
+	cout << client.c_write("Testing 1 2 3. Testing 4 5 6. using namespace std;") << "\n";
+	cout << client.c_read() << "\n";
 
-		cout << client.s_write("#include <iostream> int main(int argc, char* argv[]){}") << "\n";
-		cout << client.s_read() << "\n";
+	cout << client.s_write("#include <iostream> int main(int argc, char* argv[]){}") << "\n";
+	cout << client.s_read() << "\n";
 
-		client.c_close();
+	client.c_close();
 	
-		return 0;
+	return 0;
 }

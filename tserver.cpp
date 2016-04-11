@@ -23,18 +23,18 @@ using namespace std;
 
 int main(){
 
-		ctserversecure server("passwordpassword");
+	ctserversecure server("passwordpassword");
 
-		server.create(5556);
-		server.getconn();
+	server.create(5556);
+	server.getconn();
 
-		cout << server.c_read() << "\n";
-		server.c_write("server.create(5553); server.getconn(); cout << server.c_read() << 'n';");
+	cout << server.c_read() << "\n";
+	server.c_write("server.create(5553); server.getconn(); cout << server.c_read() << 'n';");
 
-		cout << server.s_read() << "\n";
-		server.s_write("Testing testing testing testing testing testing testing testing testing");
+	cout << server.s_read() << "\n";
+	server.s_write("Testing testing testing testing testing testing testing testing testing");
 
-		server.c_close();
+	server.c_close();
 
-		return 0;
+	return 0;
 }

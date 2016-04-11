@@ -37,7 +37,7 @@ string ctclientsecure::s_read(){
 
 		string tmpmsg = c_read();
 		if(tmpmsg.substr(tmpmsg.length() - 6) == "#@#end"){
-				done = true;
+			done = true;
 		}
 		else{
 			emessage += (char) atoi(tmpmsg.c_str());

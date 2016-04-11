@@ -23,10 +23,10 @@ using namespace std;
 
 int main(){
 
-		ctserversecure server("passwordpassword");
+	ctserversecure server("passwordpassword");
 
-		string msg = server.encrypt(";Scratch buffer (C-x C-e to add function/libs, C-j to run");
-		cout << server.decrypt(msg) << "\n";
+	string msg = server.encrypt(";Scratch buffer (C-x C-e to add function/libs, C-j to run");
+	cout << server.decrypt(msg) << "\n";
 				
-		return 0;
+	return 0;
 }
