@@ -25,7 +25,7 @@ int main(){
 
 		ctclientsecure client("passwordpassword");
 
-		client.create("127.0.0.1", 5554);
+		client.create("127.0.0.1", 5556);
 
 		cout << client.c_write("Testing 1 2 3. Testing 4 5 6. using namespace std;") << "\n";
 		cout << client.c_read() << "\n";

@@ -20,6 +20,8 @@
 
 #include <iostream>
 
+const int ctsocket_datasize = 255;
+
 class ctsocket {
 
 public:

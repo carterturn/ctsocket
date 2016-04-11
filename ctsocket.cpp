@@ -26,46 +26,45 @@ using namespace std;
 
 string ctsocket::c_read(){
 
-		string data = "";
-		bool reading = true;
-		while(reading){
-				char reccstr[9]; //Space for \0 termination character JIC
-				bzero(reccstr, 9);
-				int retval = read(socketid, reccstr, 9);
-				for(int i = 1; i < 9; i++){
-						data += reccstr[i];
-				}
-				if(((int) reccstr[0] & 0xF0) == 0x40) reading = false;
+	string data = "";
+	bool reading = true;
+	while(reading){
+		char reccstr[ctsocket_datasize + 1];
+		bzero(reccstr, ctsocket_datasize + 1);
+		read(socketid, reccstr, ctsocket_datasize + 1);
+		for(int i = 1; i < (int) reccstr[0] + 1; i++){
+			data += reccstr[i];
 		}
+		if(((int) reccstr[0]) < ctsocket_datasize) reading = false;
+	}
 
-		return data;
+	return data;
 }
 
 int ctsocket::c_write(string data){
 
-        if(data.length() > 8){
-				while(data.length() > 0){
-						string temp = data.substr(0, 8);
-						data.erase(0, 8);
-						char msg[9];
-						bzero(msg, 9);
-						if(data.length() > 0) msg[0] = 0x38;
-						else msg[0] = 0x40 + temp.length();
-						for(int i = 0; i < temp.length(); i++){
-								msg[i+1] = temp[i];
-						}
-						send(socketid, msg, sizeof(msg), 0);
-				}
+	if(data.length() > ctsocket_datasize){
+		while(data.length() > 0){
+			string temp = data.substr(0, ctsocket_datasize);
+			data.erase(0, ctsocket_datasize);
+			char msg[temp.length() + 1];
+			bzero(msg, temp.length() + 1);
+			msg[0] = temp.length();
+			for(int i = 0; i < temp.length(); i++){
+				msg[i+1] = temp[i];
+			}
+			send(socketid, msg, sizeof(msg), 0);
 		}
-		else{
-				char msg[9];
-				bzero(msg, 9);
-				msg[0] = 0x40 + data.length();
-				for(int i = 0; i < data.length(); i++){
-						msg[i+1] = data[i];
-				}
-				send(socketid, msg, sizeof(msg), 0);
+	}
+	else{
+		char msg[data.length() + 1];
+		bzero(msg, data.length() + 1);
+		msg[0] = data.length();
+		for(int i = 0; i < data.length(); i++){
+			msg[i+1] = data[i];
 		}
-		
-		return 0;
+		send(socketid, msg, sizeof(msg), 0);
+	}
+	
+	return 0;
 }
