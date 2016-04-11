@@ -27,7 +27,7 @@ ctsocketsecure::ctsocketsecure(string key){
 }
 
 void ctsocketsecure::encryptstart(){
-	cbc_start(find_cipher("aes"), (const unsigned char *) "QWERasdfQWERasdf", (const unsigned char *) aes_key.c_str(), 16, 0,&aes);
+	cbc_start(find_cipher("aes"), (const unsigned char *) aes_key.c_str(), (const unsigned char *) aes_key.c_str(), 16, 0,&aes);
 }
 
 void ctsocketsecure::encryptend(){
