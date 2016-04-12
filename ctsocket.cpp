@@ -43,7 +43,7 @@ string ctsocket::c_read(){
 
 int ctsocket::c_write(string data){
 
-	if(data.length() > ctsocket_datasize){
+	if(data.length() >= ctsocket_datasize){
 		while(data.length() > 0){
 			string temp = data.substr(0, ctsocket_datasize);
 			data.erase(0, ctsocket_datasize);
@@ -54,6 +54,7 @@ int ctsocket::c_write(string data){
 				msg[i+1] = temp[i];
 			}
 			send(socketid, msg, sizeof(msg), 0);
+			if(data.length() == 0 && temp.length() == ctsocket_datasize) data += '\0';
 		}
 	}
 	else{

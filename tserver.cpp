@@ -25,7 +25,7 @@ int main(){
 
 	ctserver server;
 
-	server.create(5552);
+	server.create(5556);
 	server.getconn();
 
 	cout << server.c_read() << "\n";
