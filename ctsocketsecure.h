@@ -19,20 +19,18 @@
 #pragma once
 
 #include <iostream>
-#include <tomcrypt.h>
+#include <gnutls/gnutls.h>
+#include <gnutls/crypto.h>
 
 class ctsocketsecure {
 
 public:
-	ctsocketsecure(std::string key);
+	ctsocketsecure(std::string key, std::string iv);
 	
 	std::string encrypt(std::string data);
 	std::string decrypt(std::string data);
-
-	void encryptstart();
-	void encryptend();
-
 protected:
-	symmetric_CBC aes;
-	std::string aes_key;
+	gnutls_cipher_hd_t cipher_handle;
+	gnutls_datum_t key;
+	gnutls_datum_t iv;
 };
