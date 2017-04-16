@@ -1,8 +1,8 @@
 CPP=g++
 
-BASE=ctsocket.cpp ctsocket.h
-CLIENT=ctclient.cpp ctclient.h
-SERVER=ctserver.cpp ctserver.h
+BASE=ctsocket.cpp
+CLIENT=ctclient.cpp
+SERVER=ctserver.cpp
 
 build: $(BASE) $(SECURE) $(CLIENT)
 	$(CPP) -c -fPIC $(BASE)
@@ -17,10 +17,10 @@ uninstall:
 	rm -f /usr/lib/libctsocket.so
 	rm -f /usr/include/ctsocket/*.h
 	[ -d /usr/include/ctsocket ] && rmdir /usr/include/ctsocket
-test_server: tserver.cpp $(BASE) $(SECURE) $(CLIENT) $(CLIENTSECURE) $(SERVER) $(SERVERSECURE)
-	$(CPP) -o server tserver.cpp $(BASE) $(SECURE) $(CLIENT) $(CLIENTSECURE) $(SERVER) $(SERVERSECURE) -ltomcrypt
-test_client: tclient.cpp $(BASE) $(SECURE) $(CLIENT) $(CLIENTSECURE) $(SERVER) $(SERVERSECURE)
-	$(CPP) -o client tclient.cpp $(BASE) $(SECURE) $(CLIENT) $(CLIENTSECURE) $(SERVER) $(SERVERSECURE) -ltomcrypt
+test_server: tserver.cpp $(BASE) $(CLIENT) $(SERVER)
+	$(CPP) -o server tserver.cpp $(BASE) $(CLIENT) $(SERVER)
+test_client: tclient.cpp $(BASE) $(CLIENT) $(SERVER)
+	$(CPP) -o client tclient.cpp $(BASE) $(CLIENT) $(SERVER)
 test: test_server test_client
 clean:
 	for file in $$(ls *.o); do rm $$file; done

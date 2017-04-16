@@ -1,5 +1,5 @@
 /*
-  Copyright 2016 Carter Turnbaugh
+  Copyright 2017 Carter Turnbaugh
 
   This file is part of Terca C++ Sockets.
 
@@ -25,12 +25,14 @@ int main(){
 
 	ctserver server;
 
-	server.create(5556);
-	server.getconn();
+	server.create(5553);
+	while(true){
+		server.getconn();
 
-	cout << server.c_read() << "\n";
-	server.c_write("server.create(5553); server.getconn(); cout << server.c_read() << 'n';");
+		cout << server.c_read() << "\n";
+		server.c_write("server.create(5553); server.getconn(); cout << server.c_read() << 'n';");
 
-	server.c_close();
+		server.c_close();
+	}
 	return 0;
 }

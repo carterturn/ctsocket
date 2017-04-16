@@ -1,5 +1,5 @@
 /*
-  Copyright 2016 Carter Turnbaugh
+  Copyright 2017 Carter Turnbaugh
 
   This file is part of Terca C++ Sockets.
 
@@ -29,7 +29,7 @@
 using namespace std;
 
 int ctclient::create(string ip, int port){
-	int s, error;
+	int s;
 	struct sockaddr_in addr;
 
 	if((s = socket(AF_INET,SOCK_STREAM,0))<0){
@@ -39,10 +39,9 @@ int ctclient::create(string ip, int port){
 
 	addr.sin_family = AF_INET;
 	addr.sin_port = htons(port);
-	inet_aton(ip.c_str(),&addr.sin_addr);
+	inet_aton(ip.c_str(), &addr.sin_addr);
 
-	error = connect(s,(sockaddr*)&addr,sizeof(addr));
-	if(error!=0){
+	if(connect(s, (sockaddr*)&addr, sizeof(addr)) != 0){
 		cout<<"Error S02\n";
 		return -1;
 	}
