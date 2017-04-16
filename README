@@ -24,7 +24,7 @@ Dependancies
 ============
 
 Terca C++ Sockets uses GnuTLS to provide AES.
-GnuTLS is licensed under LGPLv2.1+.
+GnuTLS is licensed under LGPLv2.1+ and copyrighted by Free Software Foundation, Inc.
 Please see http://www.gnutls.org/ for more information
 
 License
