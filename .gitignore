@@ -1,0 +1,6 @@
+*.o
+*.gch
+*.so
+server
+client
+secure
