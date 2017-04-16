@@ -23,15 +23,14 @@ sudo make install
 Dependancies
 ============
 
-Terca C++ Sockets uses LibTomCrypt to provide AES.
-https://github.com/libtom/libtomcrypt
-LibTomCrypt is public domain.
-
+Terca C++ Sockets uses GnuTLS to provide AES.
+GnuTLS is licensed under LGPLv2.1+.
+Please see http://www.gnutls.org/ for more information
 
 License
 =======
 
-Copyright 2016 Carter Turnbaugh
+Copyright 2017 Carter Turnbaugh
 
 This file is part of Terca C++ Sockets.
 
