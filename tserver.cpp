@@ -23,9 +23,9 @@ using namespace std;
 
 int main(){
 
-	ctserversecure server("passwordpassword");
+	ctserversecure server("passwordpasswordpasswordpassword", "passwordpassword");
 
-	server.create(5556);
+	server.create(5552);
 	server.getconn();
 
 	cout << server.c_read() << "\n";

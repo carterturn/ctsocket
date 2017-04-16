@@ -23,7 +23,7 @@ using namespace std;
 
 int main(){
 
-	ctclientsecure client("passwordpassword");
+	ctclientsecure client("passwordpasswordpasswordpassword", "passwordpassword");
 
 	client.create("127.0.0.1", 5552);
 
