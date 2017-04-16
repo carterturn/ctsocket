@@ -25,12 +25,11 @@
 class ctsocketsecure {
 
 public:
-	ctsocketsecure(std::string key, std::string iv);
+	ctsocketsecure(std::string key);
 	
 	std::string encrypt(std::string data);
 	std::string decrypt(std::string data);
 protected:
 	gnutls_cipher_hd_t cipher_handle;
 	gnutls_datum_t key;
-	gnutls_datum_t iv;
 };

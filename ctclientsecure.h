@@ -23,7 +23,7 @@
 
 class ctclientsecure : public ctclient, public ctsocketsecure {
 public:
-ctclientsecure(std::string key, std::string iv) : ctsocketsecure(key, iv){}
+ctclientsecure(std::string key) : ctsocketsecure(key){}
 	int s_write(std::string data){
 		return c_write(encrypt(data));
 	}

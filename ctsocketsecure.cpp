@@ -22,19 +22,26 @@
 
 using namespace std;
 
-ctsocketsecure::ctsocketsecure(string key_string, string iv_string){
+ctsocketsecure::ctsocketsecure(string key_string){
 	key.data = (unsigned char *) key_string.c_str();
 	key.size = key_string.length();
-	iv.data = (unsigned char *) iv_string.c_str();
-	iv.size = iv_string.length();
+	gnutls_datum_t iv;
+	iv.data = (unsigned char *) "unused_tmp_iv!!!";
+	iv.size = 16;
 
 	gnutls_cipher_init(&cipher_handle, GNUTLS_CIPHER_AES_256_CBC, &key, &iv);
 }
 
 string ctsocketsecure::decrypt(string data){
+	char iv[16];
+	memcpy(iv, data.c_str(), 16);
+	data.erase(0, 16);
+	
 	unsigned char plaintext[data.length()];
 	bzero(plaintext, data.length());
-	
+
+	gnutls_cipher_set_iv(cipher_handle, iv, 16);
+
 	gnutls_cipher_decrypt2(cipher_handle, data.c_str(), data.length(), plaintext, data.length());
 
 	string result = "";
@@ -53,9 +60,17 @@ string ctsocketsecure::encrypt(string data){
 
 	unsigned char ciphertext[data.length()];
 
+	char iv[16];
+	gnutls_rnd(GNUTLS_RND_NONCE, iv, 16);
+
+	gnutls_cipher_set_iv(cipher_handle, iv, 16);
+
 	gnutls_cipher_encrypt2(cipher_handle, data.c_str(), data.length(), ciphertext, data.length());
 
 	string result = "";
+	for(int i = 0; i < 16; i++){
+		result += iv[i];
+	}
 	for(int i = 0; i < data.length(); i++){
 		result += ciphertext[i];
 	}
