@@ -1,11 +1,9 @@
 CPP=g++
 
-BASE=ctsocket.cpp ctsocket.h
-SECURE=ctsocketsecure.cpp ctsocketsecure.h
-CLIENT=ctclient.cpp ctclient.h
-CLIENTSECURE=ctclientsecure.h
-SERVER=ctserver.cpp ctserver.h
-SERVERSECURE=ctserversecure.h
+BASE=ctsocket.cpp
+SECURE=ctsocketsecure.cpp
+CLIENT=ctclient.cpp
+SERVER=ctserver.cpp
 
 build: $(BASE) $(SECURE) $(CLIENT) $(CLIENTSECURE) $(SERVER) $(SERVERSECURE)
 	$(CPP) -c -fPIC $(BASE)
