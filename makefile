@@ -1,18 +1,24 @@
 CPP=g++
 
-BASE=ctsocket.cpp
-CLIENT=ctclient.cpp
-SERVER=ctserver.cpp
+BASE=ctsocket
+CLIENT=ctclient
+SERVER=ctserver
 
-build: $(BASE) $(SECURE) $(CLIENT)
-	$(CPP) -c -fPIC $(BASE)
-	$(CPP) -c -fPIC $(CLIENT)
-	$(CPP) -c -fPIC $(SERVER)
-	$(CPP) -shared -Wl,-soname,libctsocket.so -o libctsocket.so *.o
+build: $(BASE).o $(CLIENT).o $(SERVER).o
+	$(CPP) -shared -Wl,-soname,libctsocket.so -lgnutls -o libctsocket.so *.o
+$(BASE).o : $(BASE).cpp
+	$(CPP) -c -fPIC $(BASE).cpp
+$(CLIENT).o : $(CLIENT).cpp
+	$(CPP) -c -fPIC $(CLIENT).cpp
+$(SERVER).o : $(SERVER).cpp
+	$(CPP) -c -fPIC $(SERVER).cpp
 install:
 	cp -f libctsocket.so /usr/lib/
+	chmod a+r /usr/lib/libctsocket.so
 	[ -d /usr/include/ctsocket ] || mkdir /usr/include/ctsocket
 	cp -f *.h /usr/include/ctsocket/
+	chmod a+r /usr/include/ctsocket
+	chmod a+r /usr/include/ctsocket/*
 uninstall:
 	rm -f /usr/lib/libctsocket.so
 	rm -f /usr/include/ctsocket/*.h
